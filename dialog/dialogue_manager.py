@@ -1,8 +1,8 @@
 import os,sys,random,time,pickle,string
 import parse_to_asp
 
-import pyaudio
-import wave
+#import pyaudio
+#import wave
 
 class dialogue_manager:
 

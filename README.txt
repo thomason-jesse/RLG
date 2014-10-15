@@ -1,8 +1,8 @@
-The dialog agent is launched from dialog/main.py
-
-After installing SPF to 'spf/dist/spf-1.5.5.jar', make a copy of the parsing information that the agent can overwrite as needed:
+Make a copy of the parsing information that the agent can overwrite as needed:
 
 $cp -r spf/geoquery/experiments/template/asp_mods/ spf/geoquery/experiments/template/dialog_writeable/
+
+The dialog agent is launched from dialog/main.py
 
 Now the system should be ready to run. If this is the very first run, build the parser in the new directory with
 
