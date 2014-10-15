@@ -125,6 +125,7 @@ elif (len(sys.argv) >= 3):
 	poll_filename = os.path.join("offline_data","inputs",session_id+"_input.txt")
 	push_filename = os.path.join("offline_data","outputs",session_id+"_output.txt")
 	core_filename = os.path.join("offline_data","cores",session_id+"_core.pickle")
+	command_filename = os.path.join("offline_data","commands",session_id+"_command.txt")
 for i in range(1,len(sys.argv)):
 	if (sys.argv[i] == "-restart_parser"):
 		restart_master_parser = True
@@ -166,7 +167,7 @@ if (retrain_master_parser == True):
 	
 	#archive log data and empty active directories for next batch
 	os.system("cp -R offline_data offline_data_"+retrain_time)
-	for dir in ['alignments','cores','inputs','logs','outputs']:
+	for dir in ['alignments','cores','inputs','logs','outputs','commands']:
 		os.system("rm "+os.path.join('offline_data',dir,'*'))
 		
 	print "done"
@@ -179,7 +180,7 @@ given_words,word_to_ontology_map = get_known_words_from_seed_files()
 if (run_offline == True):
 
 	#instantiate dialogue manager
-	"creating dialogue manager..."
+	print "creating dialogue manager..."
 	session_master = session_id+"_"+master_dir
 	if (os.path.exists(os.path.join(path_to_master_dir,session_master)) == False): #create per-user parser so log file conflicts don't happen
 		os.system("cp -R "+path_to_experiment+" "+os.path.join(path_to_master_dir,session_master))
@@ -192,13 +193,16 @@ if (run_offline == True):
 		sys.exit("WARNING: user gave up on achieving goal")
 	else:
 		print asp_goal_state
+		f = open(command_filename,'w')
+		f.write(asp_goal_state)
+		f.close()
 		#remove user-specific parsing model to save disk space
 		os.system("rm -R "+os.path.join(path_to_master_dir,session_master))
 
 #online command loop
 else:
 
-	"creating dialogue manager..."
+	print "creating dialogue manager..."
 	session_master = session_id+"_"+master_dir
 	if (os.path.exists(os.path.join(path_to_master_dir,session_master)) == False): #create per-user parser so log file conflicts don't happen
 		os.system("cp -R "+path_to_experiment+" "+os.path.join(path_to_master_dir,session_master))
