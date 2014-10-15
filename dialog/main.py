@@ -1,14 +1,16 @@
 import os,sys,operator,pickle,time
 import parse_to_asp,dialogue_manager
 
+path_to_main = sys.argv[1]
+
 #path to SPF jar
-path_to_spf = os.path.join('..','spf','dist','spf-1.5.5.jar')
+path_to_spf = os.path.join(path_to_main,'..','spf','dist','spf-1.5.5.jar')
 #path to write-able experiment directory
-path_to_experiment = os.path.join('..','spf','geoquery','experiments','template','dialog_writeable')		#For offline mode, this is the master writeable
-path_to_master_dir = os.path.join('..','spf','geoquery','experiments','template')
+path_to_experiment = os.path.join(path_to_main,'..','spf','geoquery','experiments','template','dialog_writeable')		#For offline mode, this is the master writeable
+path_to_master_dir = os.path.join(path_to_main,'..','spf','geoquery','experiments','template')
 master_dir = 'dialog_writeable'
 #path to ASP directory
-path_to_asp = '../asp/'
+path_to_asp = os.path.join(path_to_main,'..','asp')
 
 def get_known_words_from_seed_files():
 
@@ -108,29 +110,29 @@ run_offline = None
 log_filename = None
 restart_master_parser = False
 retrain_master_parser = False
-if (len(sys.argv) >= 2 and sys.argv[1] == "retrain"):
+if (len(sys.argv) >= 3 and sys.argv[2] == "retrain"):
 		run_offline = True
 		log_filename = False
 		retrain_master_parser = True
-elif (len(sys.argv) >= 3):
-	if (sys.argv[1] == "online"):
+elif (len(sys.argv) >= 4):
+	if (sys.argv[2] == "online"):
 		run_offline = False
 		poll_filename = None
 		push_filename = None
-	elif (sys.argv[1] == "offline"):
+	elif (sys.argv[2] == "offline"):
 		run_offline = True
-	session_id = sys.argv[2]
-	log_filename = os.path.join("offline_data","logs",session_id+"_log.txt")
-	alog_filename = os.path.join("offline_data","alignments",session_id+"_alog.txt")
-	poll_filename = os.path.join("offline_data","inputs",session_id+"_input.txt")
-	push_filename = os.path.join("offline_data","outputs",session_id+"_output.txt")
-	core_filename = os.path.join("offline_data","cores",session_id+"_core.pickle")
-	command_filename = os.path.join("offline_data","commands",session_id+"_command.txt")
-for i in range(1,len(sys.argv)):
+	session_id = sys.argv[3]
+	log_filename = os.path.join(path_to_main,"offline_data","logs",session_id+"_log.txt")
+	alog_filename = os.path.join(path_to_main,"offline_data","alignments",session_id+"_alog.txt")
+	poll_filename = os.path.join(path_to_main,"offline_data","inputs",session_id+"_input.txt")
+	push_filename = os.path.join(path_to_main,"offline_data","outputs",session_id+"_output.txt")
+	core_filename = os.path.join(path_to_main,"offline_data","cores",session_id+"_core.pickle")
+	command_filename = os.path.join(path_to_main,"offline_data","commands",session_id+"_command.txt")
+for i in range(2,len(sys.argv)):
 	if (sys.argv[i] == "-restart_parser"):
 		restart_master_parser = True
 if (run_offline == None or log_filename == None):
-	print "USE: $python main.py [retrain/online/offline] session_id [-restart_parser]"
+	print "USE: $python main.py [path_to_main] [retrain/online/offline] session_id [-restart_parser]"
 	sys.exit()
 	
 #train parser
@@ -150,7 +152,7 @@ if (retrain_master_parser == True):
 	
 	#trace through alignments files and add them to the training structure
 	utterance_parse_pairs = []
-	for root,dirs,files in os.walk(os.path.join("offline_data","alignments")):
+	for root,dirs,files in os.walk(os.path.join(path_to_main,"offline_data","alignments")):
 		for f in files:
 			if (f.split('.')[1] == "txt"): #right filetype
 				alog_f = open(os.path.join(root,f),'r')
@@ -166,9 +168,9 @@ if (retrain_master_parser == True):
 	retrain_parser_with_pairs(utterance_parse_pairs)
 	
 	#archive log data and empty active directories for next batch
-	os.system("cp -R offline_data offline_data_"+retrain_time)
+	os.system("cp -R "+os.path.join(path_to_main,'offline_data')+" "+os.path.join(path_to_main,'offline_data_'+retrain_time))
 	for dir in ['alignments','cores','inputs','logs','outputs','commands']:
-		os.system("rm "+os.path.join('offline_data',dir,'*'))
+		os.system("rm "+os.path.join(path_to_main,'offline_data',dir,'*'))
 		
 	print "done"
 	sys.exit()
@@ -184,7 +186,7 @@ if (run_offline == True):
 	session_master = session_id+"_"+master_dir
 	if (os.path.exists(os.path.join(path_to_master_dir,session_master)) == False): #create per-user parser so log file conflicts don't happen
 		os.system("cp -R "+path_to_experiment+" "+os.path.join(path_to_master_dir,session_master))
-	dm = dialogue_manager.dialogue_manager(parse_to_asp.parse_to_asp("../asp/",word_to_ontology_map), os.path.join(path_to_master_dir,session_master), path_to_spf, given_words, log_filename, run_offline, alog_filename=alog_filename, poll_filename=poll_filename, push_filename=push_filename, core_filename=core_filename, session_id=session_id)
+	dm = dialogue_manager.dialogue_manager(parse_to_asp.parse_to_asp(path_to_asp,word_to_ontology_map), os.path.join(path_to_master_dir,session_master), path_to_spf, given_words, log_filename, run_offline, alog_filename=alog_filename, poll_filename=poll_filename, push_filename=push_filename, core_filename=core_filename, session_id=session_id)
 
 	asp_goal_state = dm.get_command_from_user_offline() #loads user utterance from given input file as response to DM state; might result in a goal state
 	if (asp_goal_state == None):

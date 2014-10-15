@@ -2,21 +2,19 @@ Make a copy of the parsing information that the agent can overwrite as needed:
 
 $cp -r spf/geoquery/experiments/template/asp_mods/ spf/geoquery/experiments/template/dialog_writeable/
 
-The dialog agent is launched from dialog/main.py
-
 Now the system should be ready to run. If this is the very first run, build the parser in the new directory with
 
-$main.py retrain -restart_parser
+$python dialog/main.py dialog/ retrain -restart_parser
 
 For a user with id [USER_ID] (used to separate multiple simultaneous dialogues), get the next system command with
 
-$main.py offline [USER_ID]
+$python dialog/main.py dialog/ offline [USER_ID]
 
 The system will write its response to 'offline_data/outputs/[USER_ID]_output.txt'
 
 After the first call, the user will need to provide feedback before the agent can be invoked again. When invoked with
 
-$main.py offline [USER_ID]
+$python dialog/main.py dialog/ offline [USER_ID]
 
 again, the system will read 'offline_data/inputs/[USER_ID]_input.txt' for a single line of user text; it will load its previous dialogue state and respond to this text, again writing to the aforementioned output file
 
