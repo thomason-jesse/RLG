@@ -244,7 +244,10 @@ class dialogue_manager:
 	#guess whether an utterance translates to "yes", "no", "nevermind", or something else
 	def classify_user_utterances(self, utterances_text):
 	
-		utterance_class_scores = {utterance_class:0 for utterance_class in self.utterance_class_keywords}
+		#utterance_class_scores = {utterance_class:0 for utterance_class in self.utterance_class_keywords}
+		utterance_class_scores = {}
+		for utterance_class in self.utterance_class_keywords:
+			utterance_class_scores[utterance_class] = 0
 		for utterance_text in utterances_text:
 			
 			for utterance_class in self.utterance_class_keywords:
@@ -464,7 +467,10 @@ class dialogue_manager:
 			return None
 			
 		#update our confidence in various possible answers using an interpolation of parse confidence and asp ambiguity from multiple instantiation
-		role_candidates = {role:[] for role in self.asp_role_map}
+		#role_candidates = {role:[] for role in self.asp_role_map}
+		role_candidates = {}
+		for role in self.asp_role_map:
+			role_candidates[role] = []
 		for i in range(0,len(asp_nodes)):
 			apr_tuple = self.get_apr_tuple_from_asp_node(asp_nodes[i][2])
 			for role in self.asp_role_map:
@@ -840,7 +846,11 @@ class dialogue_manager:
 			f = open(self.log_filename,'a')
 			f.write("\n")
 			f.close()
-			return self.write_asp_goal_from_apr_tuple({role:self.current_best_asp_understanding[self.asp_role_map[role]][0] for role in self.asp_role_map})
+			#apr_tuple_to_write_goal_from = {role:self.current_best_asp_understanding[self.asp_role_map[role]][0] for role in self.asp_role_map}
+			apr_tuple_to_write_goal_from = {}
+			for role in self.asp_role_map:
+				apr_tuple_to_write_goal_from[role] = self.current_best_asp_understanding[self.asp_role_map[role]][0]
+			return self.write_asp_goal_from_apr_tuple(apr_tuple_to_write_goal_from)
 		
 		else:
 			self.vocalize("Sorry I couldn't understand.")
@@ -943,4 +953,8 @@ class dialogue_manager:
 			f = open(self.log_filename,'a')
 			f.write("\n")
 			f.close()
-			return self.write_asp_goal_from_apr_tuple({role:self.current_best_asp_understanding[self.asp_role_map[role]][0] for role in self.asp_role_map})
+			#apr_tuple_to_write_goal_from = {role:self.current_best_asp_understanding[self.asp_role_map[role]][0] for role in self.asp_role_map}
+			apr_tuple_to_write_goal_from = {}
+			for role in self.asp_role_map:
+				apr_tuple_to_write_goal_from[role] = self.current_best_asp_understanding[self.asp_role_map[role]][0]
+			return self.write_asp_goal_from_apr_tuple(apr_tuple_to_write_goal_from)
