@@ -253,6 +253,9 @@ class dialogue_manager:
 			for utterance_class in self.utterance_class_keywords:
 				for keyword in self.utterance_class_keywords[utterance_class]:
 					if (keyword in utterance_text):
+						#ad-hoc check for kazunori's name; definitely needs to be removed eventually
+						if (keyword == 'no' and 'kazunori' in utterance_text):
+							continue
 						utterance_class_scores[utterance_class] += 1
 					
 		maximum_score,max_utterance_class = self.max_argmax(utterance_class_scores)
