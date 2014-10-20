@@ -198,8 +198,8 @@ if (run_offline == True):
 		f = open(command_filename,'w')
 		f.write(asp_goal_state)
 		f.close()
-		dm.write_core_elements_to_pickle_and_shutdown() #write output vocalization(s) and safe final core
 		os.system("rm -R "+os.path.join(path_to_master_dir,session_master)) #remove user-specific parsing model to save disk space
+		dm.write_core_elements_to_pickle_and_shutdown() #write output vocalization(s) and safe final core
 
 #online command loop
 else:
