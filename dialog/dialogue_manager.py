@@ -617,7 +617,7 @@ class dialogue_manager:
 		else:
 			if (relatively_confident_about[self.asp_role_map["action"]] == "query"):
 				self.role_requested = "patient"
-				verbal_query = "'"+self.verbalize_apr_tuple(relatively_confident_about)+"', does that answer your question?"
+				verbal_query = "Are you asking a question about '"+self.verbalize_apr_tuple(relatively_confident_about)+"'?"
 			else:
 				verbal_query = "You want me to "+self.verbalize_apr_tuple(relatively_confident_about)+"?"
 	
