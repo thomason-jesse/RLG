@@ -88,14 +88,14 @@ with  :- (NP\N)/(NP/N)  : (lambda $0:<<e,t>,e> $0)
 i :- NP : me:pe
 you :- NP : self:self
 yourself :- NP : self:self
-peter stone :- NP : peter:pe
-raymond mooney :- NP : ray:pe
-dana ballard :- NP : dana:pe
-kazunori iwata :- NP : kazunori:pe
-matteo leonetti :- NP : matteo:pe
-shiqi zhang :- NP : shiqi:pe
-jivko sinapov :- NP : jivko:pe
-stacy miller :- NP : stacy:pe
+mallory morgan :- NP : peter:pe
+walter ward :- NP : ray:pe
+peggy parker :- NP : dana:pe
+alice ashcraft :- NP : kazunori:pe
+robert brown :- NP : matteo:pe
+carol clark :- NP : shiqi:pe
+dave daniels :- NP : jivko:pe
+evelyn ellis :- NP : stacy:pe
 3402 :- NP : l3_402:ro
 3404 :- NP : l3_404:ro
 3416 :- NP : l3_416:ro
