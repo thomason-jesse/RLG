@@ -157,6 +157,8 @@ if (retrain_master_parser == True):
 			if (f.split('.')[1] == "txt"): #right filetype
 				alog_f = open(os.path.join(root,f),'r')
 				alog_f_lines = alog_f.read().strip().split("\n")
+				if (len(alog_f_lines) < 2): #blank
+					continue
 				i = 0
 				while (i < len(alog_f_lines)):
 					utterance_parse_pairs.append((alog_f_lines[i],alog_f_lines[i+1]))
