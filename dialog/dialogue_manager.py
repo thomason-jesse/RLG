@@ -502,7 +502,7 @@ class dialogue_manager:
 		
 		#if asked to verbalize partial, check whether last verbalization was identical and apologize for needing additional clarification
 		if (self.last_apr != None and apr[self.asp_role_map["action"]] == self.last_apr[self.asp_role_map["action"]] and apr[self.asp_role_map["patient"]] == self.last_apr[self.asp_role_map["patient"]] and apr[self.asp_role_map["recipient"]] == self.last_apr[self.asp_role_map["recipient"]] and role_requested == self.last_role_requested):
-			self.vocalize("Sorry; I couldn't pinpoint what you meant by that.",request_type="no_clarification_gained",role_requested=None)
+			self.vocalize("I'm sorry, but I couldn't pinpoint what you meant by that.",request_type="no_clarification_gained",role_requested=None)
 		self.last_apr = apr
 		self.last_role_requested = role_requested
 		
@@ -646,6 +646,11 @@ class dialogue_manager:
 		elif (utterance_class == "nevermind"):
 			self.request_type = "terminate"
 			self.role_requested = None
+			return None
+			
+		#if sure we're requesting confirmation and confirmation/denial was not given, need to do an exit to re-clarify
+		if (self.roles_relatively_confident_about[self.asp_role_map[self.role_requested]] != None):
+			self.vocalize("Let me get a handle on what you want, first.")
 			return None
 			
 		#make a pass at understanding by parsing
