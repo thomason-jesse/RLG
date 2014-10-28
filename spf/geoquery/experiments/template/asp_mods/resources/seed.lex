@@ -86,6 +86,7 @@ with  :- (NP\N)/(NP/N)  : (lambda $0:<<e,t>,e> $0)
 
 // np-list copy; including these entries here allows them to be used as candidates by the GENLEX procedure
 i :- NP : me:pe
+me :- NP : me:pe
 you :- NP : self:self
 yourself :- NP : self:self
 mallory morgan :- NP : peter:pe
@@ -118,5 +119,5 @@ evelyn ellis :- NP : stacy:pe
 3516 :- NP : l3_516:ro
 counter :- NP : coffeecounter:sc
 coffee :- NP : coffee:it
-bread :- NP : bread:it
+trashcan :- NP : bread:it
 sandwich :- NP : sandwich:it
