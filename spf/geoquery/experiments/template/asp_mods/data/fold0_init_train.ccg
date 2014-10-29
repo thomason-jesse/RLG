@@ -4,7 +4,7 @@ mallory morgan s office
 walk to mallory morgan s office
 (and:<t*,t> (action:<a,t> walk:a) (actionrecipient:<a,<e,t>> walk:a (the:<<e,t>,e> (lambda $0:e (and:<t*,t> (person:<pe,t> peter:pe) (office:<of,t> $0) (possesses:<pe,<e,t>> peter:pe $0))))))
 
-go to evelyn ellis s office
+go to evelyn eckhart s office
 (and:<t*,t> (action:<a,t> walk:a) (actionrecipient:<a,<e,t>> walk:a (the:<<e,t>,e> (lambda $0:e (and:<t*,t> (person:<pe,t> stacy:pe) (office:<of,t> $0) (possesses:<pe,<e,t>> stacy:pe $0))))))
 
 take coffee to mallory morgan

@@ -8,8 +8,8 @@ peggy parker :- NP : dana:pe
 alice ashcraft :- NP : kazunori:pe
 robert brown :- NP : matteo:pe
 carol clark :- NP : shiqi:pe
-dave daniels :- NP : jivko:pe
-evelyn ellis :- NP : stacy:pe
+dave daniel :- NP : jivko:pe
+evelyn eckhart :- NP : stacy:pe
 3402 :- NP : l3_402:ro
 3404 :- NP : l3_404:ro
 3416 :- NP : l3_416:ro
