@@ -13,6 +13,8 @@ matteo:pe
 shiqi:pe
 jivko:pe
 stacy:pe
+katie:pe
+subha:pe
 l3_414a:ro
 l3_402:ro
 l3_404:ro
@@ -71,10 +73,12 @@ d3_510:do
 d3_512:do
 d3_516a:do
 d3_516b:do
-coffee:it
-bread:it
-sandwich:it
 coffeeshop:sh
 coffeecounter:sc
+coffee:it
+trashcan:it
+hamburger:it
+phone:it
+calendar:it
 
 )

@@ -10,6 +10,8 @@ robert brown :- NP : matteo:pe
 carol clark :- NP : shiqi:pe
 dave daniel :- NP : jivko:pe
 evelyn eckhart :- NP : stacy:pe
+george green :- NP : katie:pe
+francis foster :- NP : subha:pe
 3402 :- NP : l3_402:ro
 3404 :- NP : l3_404:ro
 3416 :- NP : l3_416:ro
@@ -32,5 +34,7 @@ evelyn eckhart :- NP : stacy:pe
 3516 :- NP : l3_516:ro
 counter :- NP : coffeecounter:sc
 coffee :- NP : coffee:it
-trashcan :- NP : bread:it
-sandwich :- NP : sandwich:it
+trashcan :- NP : trashcan:it
+hamburger :- NP : hamburger:it
+cell phone :- NP : phone:it
+calendar :- NP : calendar:it
